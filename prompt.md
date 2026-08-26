@@ -99,6 +99,6 @@ Enforce: ticket capacity can never be oversold (use a transaction with row-level
 - README with setup steps, architecture overview, and API route list
 - A short summary at the end of what was built and any decisions/tradeoffs made
 
+3. start building. make different file like frontend (include all frontend file), api (all api files), backend(include all backend files)
 
-
-
+4. there are errors when tried to deploy on the vercel clear them

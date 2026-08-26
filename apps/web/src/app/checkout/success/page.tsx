@@ -1,12 +1,12 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { fetchApi } from '../../../lib/api';
 import Link from 'next/link';
 import { CheckCircle, Download, ArrowRight, Loader2 } from 'lucide-react';
 
-export default function CheckoutSuccessPage() {
+function CheckoutSuccessContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const bookingId = searchParams.get('booking_id');
@@ -89,3 +89,12 @@ export default function CheckoutSuccessPage() {
     </div>
   );
 }
+
+export default function CheckoutSuccessPage() {
+  return (
+    <Suspense fallback={<div className="text-center py-20 text-slate-400">Loading payment confirmation...</div>}>
+      <CheckoutSuccessContent />
+    </Suspense>
+  );
+}
+
