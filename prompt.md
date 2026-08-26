@@ -105,3 +105,6 @@ Enforce: ticket capacity can never be oversold (use a transaction with row-level
 
 5. there is npm error
 
+6. push all changes to github
+
+
