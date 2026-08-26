@@ -107,4 +107,7 @@ Enforce: ticket capacity can never be oversold (use a transaction with row-level
 
 6. push all changes to github
 
+7. npm warn allow-scripts ... Error: No Next.js version detected. Make sure your package.json has "next" in either "dependencies" or "devDependencies". Also check your Root Directory setting matches the directory of your package.json file. these are the errors i get while deploying in vercel
+
+
 
