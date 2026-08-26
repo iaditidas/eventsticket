@@ -11,7 +11,7 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@eventhub/types": "file:../../packages/types",
+    "@eventhub/types": "*",
     "@prisma/client": "^5.10.2",
     "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.6",
