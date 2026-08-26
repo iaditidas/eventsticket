@@ -1,0 +1,101 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String    @id @default(uuid())
+  name         String
+  email        String    @unique
+  passwordHash String
+  role         String    @default("CUSTOMER") // CUSTOMER | ADMIN
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  events       Event[]   @relation("OrganizerEvents")
+  bookings     Booking[]
+}
+
+model Event {
+  id          String           @id @default(uuid())
+  organizerId String
+  organizer   User             @relation("OrganizerEvents", fields: [organizerId], references: [id])
+  title       String
+  description String
+  venue       String
+  date        String
+  startTime   String
+  endTime     String
+  bannerImage String
+  status      String           @default("DRAFT") // DRAFT | PUBLISHED | CANCELLED
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+
+  categories  TicketCategory[]
+  bookings    Booking[]
+}
+
+model TicketCategory {
+  id            String        @id @default(uuid())
+  eventId       String
+  event         Event         @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  name          String        // e.g., VIP, Premium, General
+  price         Float
+  totalCapacity Int
+  ticketsSold   Int           @default(0)
+  createdAt     DateTime      @default(now())
+
+  bookingItems  BookingItem[]
+}
+
+model Booking {
+  id          String        @id @default(uuid())
+  userId      String
+  user        User          @relation(fields: [userId], references: [id])
+  eventId     String
+  event       Event         @relation(fields: [eventId], references: [id])
+  status      String        @default("PENDING") // PENDING | CONFIRMED | CANCELLED
+  totalAmount Float
+  paymentId   String?
+  createdAt   DateTime      @default(now())
+
+  items       BookingItem[]
+  payments    Payment[]
+}
+
+model BookingItem {
+  id               String         @id @default(uuid())
+  bookingId        String
+  booking          Booking        @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  ticketCategoryId String
+  ticketCategory   TicketCategory @relation(fields: [ticketCategoryId], references: [id])
+  quantity         Int
+  unitPrice        Float
+
+  tickets          Ticket[]
+}
+
+model Ticket {
+  id            String      @id @default(uuid())
+  bookingItemId String
+  bookingItem   BookingItem @relation(fields: [bookingItemId], references: [id], onDelete: Cascade)
+  ticketCode    String      @unique
+  qrCode        String
+  isCheckedIn   Boolean     @default(false)
+  checkedInAt   DateTime?
+  createdAt     DateTime    @default(now())
+}
+
+model Payment {
+  id                    String   @id @default(uuid())
+  bookingId             String
+  booking               Booking  @relation(fields: [bookingId], references: [id])
+  stripePaymentIntentId String
+  amount                Float
+  status                String   @default("PENDING") // PENDING | SUCCEEDED | FAILED | REFUNDED
+  createdAt             DateTime @default(now())
+}

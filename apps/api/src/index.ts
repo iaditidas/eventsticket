@@ -1,0 +1,52 @@
+import express from 'express';
+import cors from 'cors';
+import cookieParser from 'cookie-parser';
+import rateLimit from 'express-rate-limit';
+import { env } from './config/env';
+import { errorHandler } from './middleware/error';
+
+import authRoutes from './routes/auth.routes';
+import eventRoutes from './routes/event.routes';
+import bookingRoutes from './routes/booking.routes';
+import ticketRoutes from './routes/ticket.routes';
+import adminRoutes from './routes/admin.routes';
+
+const app = express();
+
+// Security rate limiter for auth routes
+const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 100,
+  message: { success: false, message: 'Too many authentication attempts, please try again later.' },
+});
+
+app.use(cors({ origin: env.CLIENT_URL, credentials: true }));
+app.use(cookieParser());
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true }));
+
+// Health check
+app.get('/health', (req, res) => {
+  res.json({ success: true, status: 'API Operational', timestamp: new Date().toISOString() });
+});
+
+// Routes
+app.use('/api/v1/auth', authLimiter, authRoutes);
+app.use('/api/v1/events', eventRoutes);
+app.use('/api/v1/bookings', bookingRoutes);
+app.use('/api/v1/tickets', ticketRoutes);
+app.use('/api/v1/admin', adminRoutes);
+
+// Stripe Webhook Endpoint (Direct response confirmation simulator)
+app.post('/api/v1/webhooks/stripe', (req, res) => {
+  console.log('[Stripe Webhook]: Event received successfully.');
+  res.json({ received: true });
+});
+
+// Global Error Handler
+app.use(errorHandler);
+
+const PORT = env.PORT || 5001;
+app.listen(PORT, () => {
+  console.log(`🚀 EventHub API Server running at http://localhost:${PORT}`);
+});

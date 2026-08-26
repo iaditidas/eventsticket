@@ -1,0 +1,20 @@
+{
+  "name": "event-ticketing-platform",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspaces --if-present",
+    "dev:api": "npm --prefix apps/api run dev",
+    "dev:web": "npm --prefix apps/web run dev",
+    "build": "npm run build --workspaces --if-present",
+    "test": "npm --prefix apps/api test",
+    "db:seed": "npm --prefix apps/api run db:seed"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.3"
+  }
+}

@@ -1,0 +1,64 @@
+import { Request, Response, NextFunction } from 'express';
+import jwt from 'jsonwebtoken';
+import { env } from '../config/env';
+import { Role } from '@eventhub/types';
+
+export interface AuthRequest extends Request {
+  user?: {
+    id: string;
+    email: string;
+    role: Role;
+    name: string;
+  };
+}
+
+export const authenticateToken = (req: AuthRequest, res: Response, next: NextFunction) => {
+  let token: string | undefined;
+
+  const authHeader = req.headers.authorization;
+  if (authHeader && authHeader.startsWith('Bearer ')) {
+    token = authHeader.split(' ')[1];
+  } else if (req.cookies && req.cookies.token) {
+    token = req.cookies.token;
+  }
+
+  if (!token) {
+    return res.status(401).json({
+      success: false,
+      message: 'Access token required. Please log in.',
+    });
+  }
+
+  try {
+    const decoded = jwt.verify(token, env.JWT_SECRET) as {
+      id: string;
+      email: string;
+      role: Role;
+      name: string;
+    };
+    req.user = decoded;
+    next();
+  } catch (err) {
+    return res.status(401).json({
+      success: false,
+      message: 'Invalid or expired session token.',
+    });
+  }
+};
+
+export const requireRole = (...roles: Role[]) => {
+  return (req: AuthRequest, res: Response, next: NextFunction) => {
+    if (!req.user) {
+      return res.status(401).json({ success: false, message: 'Unauthorized' });
+    }
+
+    if (!roles.includes(req.user.role)) {
+      return res.status(403).json({
+        success: false,
+        message: `Forbidden: requires ${roles.join(' or ')} permission`,
+      });
+    }
+
+    next();
+  };
+};
