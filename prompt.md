@@ -111,6 +111,9 @@ Enforce: ticket capacity can never be oversold (use a transaction with row-level
 
 8. npm run dev ... Error: listen EADDRINUSE: address already in use :::5001
 
+9. npm warn deprecated jpeg-exif@1.1.4 ... crypto-js@4.2.0 ... in vercel when deployed. clear these errors
+
+
 
 
 
