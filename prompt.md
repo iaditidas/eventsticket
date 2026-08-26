@@ -113,6 +113,9 @@ Enforce: ticket capacity can never be oversold (use a transaction with row-level
 
 9. npm warn deprecated jpeg-exif@1.1.4 ... crypto-js@4.2.0 ... in vercel when deployed. clear these errors
 
+10. what should i do now
+
+
 
 
 
