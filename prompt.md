@@ -129,9 +129,10 @@ Enforce: ticket capacity can never be oversold (use a transaction with row-level
 
 21. i am not getting the list when i click on browse events
 
+22. still noo list
+
 23. browse events button isnt working
 
 24. nothing is happening when i click on the browse events button
 
-
-
+25. add 5 events to database and when i click on the browse events i should get those events there and should be able to book a ticket
