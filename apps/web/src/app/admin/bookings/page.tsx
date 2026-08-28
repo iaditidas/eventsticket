@@ -72,7 +72,7 @@ export default function MasterBookingsPage() {
                       <span className="block text-xs text-slate-500 font-normal">{b.user?.email}</span>
                     </td>
                     <td className="p-4 font-semibold text-slate-700">{b.event?.title}</td>
-                    <td className="p-4 font-extrabold text-indigo-600">${b.totalAmount.toFixed(2)}</td>
+                    <td className="p-4 font-extrabold text-indigo-600">₹{b.totalAmount.toFixed(2)}</td>
                     <td className="p-4">
                       <span
                         className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold border ${

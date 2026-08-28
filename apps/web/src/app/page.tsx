@@ -97,7 +97,7 @@ export default function EventsBrowsePage() {
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                   <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-md px-3 py-1 rounded-full border border-slate-200 text-xs font-bold text-indigo-700 shadow-sm">
-                    From ${minPrice}
+                    From ₹{minPrice}
                   </div>
                 </div>
 

@@ -40,7 +40,7 @@ export default function AdminDashboardPage() {
               <DollarSign className="w-4 h-4" />
             </div>
           </div>
-          <p className="text-3xl font-black text-slate-900">${stats?.totalRevenue?.toFixed(2) || '0.00'}</p>
+          <p className="text-3xl font-black text-slate-900">₹{stats?.totalRevenue?.toFixed(2) || '0.00'}</p>
         </div>
 
         <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2">

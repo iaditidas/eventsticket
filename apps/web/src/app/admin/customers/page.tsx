@@ -65,7 +65,7 @@ export default function AdminCustomersPage() {
                     <td className="p-4 text-xs text-slate-500">{c.email}</td>
                     <td className="p-4 text-xs text-slate-500">{new Date(c.createdAt).toLocaleDateString()}</td>
                     <td className="p-4 font-semibold text-slate-800">{c.totalBookings}</td>
-                    <td className="p-4 text-right font-black text-emerald-600">${c.totalSpend.toFixed(2)}</td>
+                    <td className="p-4 text-right font-black text-emerald-600">₹{c.totalSpend.toFixed(2)}</td>
                   </tr>
                 ))}
               </tbody>

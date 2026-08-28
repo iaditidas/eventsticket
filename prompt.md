@@ -121,7 +121,9 @@ Enforce: ticket capacity can never be oversold (use a transaction with row-level
 
 14. there is no index.html??
 
-15. No Next.js version detected. Make sure your package.json has "next" in either "dependencies" or "devDependencies". Also check your Root Directory setting matches the directory of your package.json file.
+18. i am getting the same error while deploying No Next.js version detected. Make sure your package.json has "next" in either "dependencies" or "devDependencies". Also check your Root Directory setting matches the directory of your package.json file. clear this and push to giithub
+
+19. add 5 events and keep ticket price 500 rupees
 
 
 

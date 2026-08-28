@@ -169,7 +169,7 @@ export default function EventDetailPage() {
                             </span>
                           )}
                         </div>
-                        <p className="text-indigo-600 font-extrabold text-xl mt-1">${cat.price.toFixed(2)}</p>
+                        <p className="text-indigo-600 font-extrabold text-xl mt-1">₹{cat.price.toFixed(2)}</p>
                       </div>
 
                       {/* Quantity Selector */}
@@ -213,14 +213,14 @@ export default function EventDetailPage() {
                   return (
                     <div key={cat.id} className="flex justify-between text-slate-600">
                       <span>{cat.name} × {qty}</span>
-                      <span className="font-bold text-slate-900">${(cat.price * qty).toFixed(2)}</span>
+                      <span className="font-bold text-slate-900">₹{(cat.price * qty).toFixed(2)}</span>
                     </div>
                   );
                 })}
 
                 <div className="pt-4 border-t border-slate-100 flex justify-between items-center text-lg font-black">
                   <span className="text-slate-900">Total</span>
-                  <span className="text-indigo-600">${subtotal.toFixed(2)}</span>
+                  <span className="text-indigo-600">₹{subtotal.toFixed(2)}</span>
                 </div>
               </div>
             )}

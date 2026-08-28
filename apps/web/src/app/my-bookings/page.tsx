@@ -72,7 +72,7 @@ export default function MyBookingsPage() {
 
                 <div className="text-right">
                   <span className="text-xs text-slate-400 font-medium block">Total Paid</span>
-                  <span className="text-2xl font-black text-indigo-600">${b.totalAmount.toFixed(2)}</span>
+                  <span className="text-2xl font-black text-indigo-600">₹{b.totalAmount.toFixed(2)}</span>
                 </div>
               </div>
 
