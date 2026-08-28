@@ -115,4 +115,6 @@ Enforce: ticket capacity can never be oversold (use a transaction with row-level
 
 11. server cant be found
 
+12. one more small changes. segregate the file. frontend(html,css,javaScript,react,next.js if any of thesepresent they sould come umder the frontend), Backend(react, next.js if present then those should be under backend), database (MySql, PostgreSql, MongoDB if any on these present it should come under database) rest ill tell you later
+
 
