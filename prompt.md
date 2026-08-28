@@ -140,3 +140,5 @@ Enforce: ticket capacity can never be oversold (use a transaction with row-level
 26. give me demo link
 
 27. Unhandled Runtime Error Error: Hydration failed because the initial UI does not match what was rendered on the server. Warning: Expected server HTML to contain a matching <a> in <nav>.
+
+28. when signed in and done with takeouts. i dont see anything in my bookings
