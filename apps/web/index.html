@@ -15,12 +15,67 @@
       font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
       background-color: #0f172a;
       color: #f8fafc;
-      padding: 2rem 1rem;
       min-height: 100vh;
+    }
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background-color: rgba(15, 23, 42, 0.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid #334155;
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      font-size: 1.25rem;
+      font-weight: 900;
+      color: #ffffff;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .logo span {
+      color: #6366f1;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    .nav-btn {
+      background-color: #4f46e5;
+      color: white;
+      padding: 0.5rem 1.25rem;
+      border-radius: 0.75rem;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.9rem;
+      transition: background-color 0.2s, transform 0.1s;
+      border: none;
+      cursor: pointer;
+    }
+    .nav-btn:hover {
+      background-color: #4338ca;
+      transform: translateY(-1px);
+    }
+    .nav-link-item {
+      color: #cbd5e1;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+    .nav-link-item:hover {
+      color: #818cf8;
     }
     .container {
       max-width: 1200px;
       margin: 0 auto;
+      padding: 3rem 1rem;
     }
     header {
       text-align: center;
@@ -167,14 +222,23 @@
   </style>
 </head>
 <body>
+  <!-- Navigation Header with working Browse Events button -->
+  <nav class="navbar">
+    <a href="/" class="logo">🎫 Event<span>Hub</span></a>
+    <div class="nav-links">
+      <button onclick="scrollToEvents()" class="nav-btn">Browse Events</button>
+      <a href="http://localhost:3000/login" class="nav-link-item">Sign In</a>
+    </div>
+  </nav>
+
   <div class="container">
     <header>
       <div class="badge">🎫 EventHub Featured Directory</div>
       <h1>Browse 5 Upcoming Events</h1>
-      <p class="subtitle">Select an event below to check small info, venue, timing, date, and book ₹500 admission passes.</p>
+      <p class="subtitle">Click <strong>Browse Events</strong> or select an event below to check small info, venue, timing, date, and book ₹500 admission passes.</p>
     </header>
 
-    <div class="grid">
+    <div id="events-grid" class="grid">
       <!-- Event 1 -->
       <div class="card">
         <div class="img-container">
@@ -280,5 +344,14 @@
       © 2026 EventHub Ticketing Platform • Built with Next.js, Express & Prisma
     </footer>
   </div>
+
+  <script>
+    function scrollToEvents() {
+      const target = document.getElementById('events-grid');
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  </script>
 </body>
 </html>
