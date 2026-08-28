@@ -136,3 +136,7 @@ Enforce: ticket capacity can never be oversold (use a transaction with row-level
 24. nothing is happening when i click on the browse events button
 
 25. add 5 events to database and when i click on the browse events i should get those events there and should be able to book a ticket
+
+26. give me demo link
+
+27. Unhandled Runtime Error Error: Hydration failed because the initial UI does not match what was rendered on the server. Warning: Expected server HTML to contain a matching <a> in <nav>.

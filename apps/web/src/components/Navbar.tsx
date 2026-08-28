@@ -1,11 +1,17 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useAuthStore } from '../lib/auth-store';
 import { Ticket, Shield, LogOut, User, LayoutDashboard, QrCode } from 'lucide-react';
 
 export default function Navbar() {
   const { user, logout } = useAuthStore();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleBrowseClick = (e: React.MouseEvent) => {
     const section = document.getElementById('events-grid-section');
@@ -13,6 +19,8 @@ export default function Navbar() {
       section.scrollIntoView({ behavior: 'smooth' });
     }
   };
+
+  const activeUser = mounted ? user : null;
 
   return (
     <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-xs">
@@ -29,13 +37,13 @@ export default function Navbar() {
             Browse Events
           </Link>
 
-          {user && (
+          {activeUser && (
             <Link href="/my-bookings" className="text-slate-600 hover:text-indigo-600 transition-colors">
               My Bookings
             </Link>
           )}
 
-          {user?.role === 'ADMIN' && (
+          {activeUser?.role === 'ADMIN' && (
             <div className="flex items-center space-x-4 border-l border-slate-200 pl-4">
               <Link href="/admin" className="flex items-center space-x-1.5 text-indigo-600 hover:text-indigo-700">
                 <LayoutDashboard className="w-4 h-4" />
@@ -49,11 +57,15 @@ export default function Navbar() {
           )}
 
           <div className="flex items-center space-x-3 ml-4">
-            {user ? (
+            {mounted && activeUser ? (
               <div className="flex items-center space-x-3">
                 <span className="hidden md:inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-slate-100 text-slate-700 border border-slate-200">
-                  {user.role === 'ADMIN' ? <Shield className="w-3.5 h-3.5 text-indigo-600 mr-1.5" /> : <User className="w-3.5 h-3.5 text-slate-500 mr-1.5" />}
-                  {user.name}
+                  {activeUser.role === 'ADMIN' ? (
+                    <Shield className="w-3.5 h-3.5 text-indigo-600 mr-1.5" />
+                  ) : (
+                    <User className="w-3.5 h-3.5 text-slate-500 mr-1.5" />
+                  )}
+                  {activeUser.name}
                 </span>
                 <button
                   onClick={logout}
@@ -63,7 +75,7 @@ export default function Navbar() {
                   <LogOut className="w-4 h-4" />
                 </button>
               </div>
-            ) : (
+            ) : mounted ? (
               <div className="flex items-center space-x-3">
                 <Link href="/login" className="text-slate-600 hover:text-indigo-600 transition-colors">
                   Sign In
@@ -75,7 +87,7 @@ export default function Navbar() {
                   Get Started
                 </Link>
               </div>
-            )}
+            ) : null}
           </div>
         </nav>
       </div>
