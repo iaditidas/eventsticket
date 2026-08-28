@@ -127,5 +127,7 @@ Enforce: ticket capacity can never be oversold (use a transaction with row-level
 
 20. when i click on browse events i want the list of 5 events. a small info about them, venue and timing with date.
 
+21. i am not getting the list when i click on browse events
+
 
 
