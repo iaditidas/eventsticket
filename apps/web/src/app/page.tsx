@@ -117,7 +117,7 @@ export default function EventsBrowsePage() {
   });
 
   return (
-    <div className="space-y-8">
+    <div id="events-grid-section" className="space-y-8 scroll-mt-24">
       {/* Hero Header */}
       <div className="relative rounded-3xl overflow-hidden p-8 md:p-12 border border-slate-200 bg-gradient-to-br from-indigo-50/90 via-white to-slate-50 shadow-sm">
         <div className="max-w-3xl space-y-4">
