@@ -125,5 +125,7 @@ Enforce: ticket capacity can never be oversold (use a transaction with row-level
 
 19. add 5 events and keep ticket price 500 rupees
 
+20. when i click on browse events i want the list of 5 events. a small info about them, venue and timing with date.
+
 
 
