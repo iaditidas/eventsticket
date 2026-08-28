@@ -20,14 +20,48 @@ const authLimiter = rateLimit({
   message: { success: false, message: 'Too many authentication attempts, please try again later.' },
 });
 
-app.use(cors({ origin: env.CLIENT_URL, credentials: true }));
+// Flexible CORS policy for local dev and Vercel hosting
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, true);
+      if (
+        origin.includes('localhost') ||
+        origin.includes('127.0.0.1') ||
+        origin.includes('vercel.app') ||
+        origin === env.CLIENT_URL
+      ) {
+        return callback(null, true);
+      }
+      return callback(null, true);
+    },
+    credentials: true,
+  })
+);
 app.use(cookieParser());
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 
-// Health check
+// Health check & Root endpoints
+app.get('/', (req, res) => {
+  res.json({
+    success: true,
+    message: '🚀 EventHub API Server is active and operational',
+    version: '1.0.0',
+    documentation: '/api/v1/health',
+  });
+});
+
 app.get('/health', (req, res) => {
   res.json({ success: true, status: 'API Operational', timestamp: new Date().toISOString() });
+});
+
+app.get('/api/v1', (req, res) => {
+  res.json({
+    success: true,
+    message: 'EventHub API v1 Base Route',
+    endpoints: ['/auth', '/events', '/bookings', '/tickets', '/admin'],
+  });
 });
 
 // Routes

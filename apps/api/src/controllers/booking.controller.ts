@@ -77,14 +77,17 @@ export class BookingController {
         },
       });
 
+      // Determine client frontend URL
+      const clientUrl = req.headers.origin || process.env.CLIENT_URL || 'http://localhost:3000';
+
       // Create Stripe checkout session
       const stripeResult = await StripeService.createCheckoutSession({
         bookingId: booking.id,
         customerEmail: req.user!.email,
         eventTitle: event.title,
         items: bookingItemsData.map((i) => ({ name: i.categoryName, unitPrice: i.unitPrice, quantity: i.quantity })),
-        successUrl: `${req.protocol}://${req.get('host')}/api/v1/bookings/success`,
-        cancelUrl: `${req.protocol}://${req.get('host')}/api/v1/bookings/cancel`,
+        successUrl: `${clientUrl}/checkout/success`,
+        cancelUrl: `${clientUrl}/events/${event.id}`,
       });
 
       return res.status(201).json({
@@ -92,13 +95,20 @@ export class BookingController {
         data: {
           bookingId: booking.id,
           totalAmount,
-          checkoutUrl: stripeResult.url,
+          checkoutUrl: stripeResult.url || `${clientUrl}/checkout/success?booking_id=${booking.id}`,
           sessionId: stripeResult.sessionId,
         },
       });
     } catch (err: any) {
       return res.status(500).json({ success: false, message: err.message });
     }
+  }
+
+  // Handle direct API GET /success redirect to Next.js client
+  static async handleSuccessRedirect(req: AuthRequest, res: Response) {
+    const bookingId = req.query.booking_id || req.query.bookingId || '';
+    const clientUrl = req.headers.origin || process.env.CLIENT_URL || 'http://localhost:3000';
+    return res.redirect(`${clientUrl}/checkout/success?booking_id=${bookingId}`);
   }
 
   // Success Callback / Direct Payment Confirmation (atomic capacity increment + ticket generation)

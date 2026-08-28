@@ -12,11 +12,11 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
 
   if (!user || user.role !== 'ADMIN') {
     return (
-      <div className="max-w-md mx-auto py-20 text-center glass-card p-8 rounded-3xl border border-slate-800 space-y-4">
-        <ShieldAlert className="w-12 h-12 text-rose-400 mx-auto" />
-        <h2 className="text-xl font-bold text-white">Access Denied</h2>
-        <p className="text-slate-400 text-sm">Organizer / Admin privileges required to view this area.</p>
-        <Link href="/login" className="inline-block px-4 py-2 bg-indigo-600 text-white font-semibold rounded-xl text-sm">
+      <div className="max-w-md mx-auto py-20 text-center bg-white p-8 rounded-3xl border border-slate-200 shadow-xl space-y-4">
+        <ShieldAlert className="w-12 h-12 text-rose-500 mx-auto" />
+        <h2 className="text-xl font-bold text-slate-900">Access Restricted</h2>
+        <p className="text-slate-500 text-sm">Organizer / Admin privileges required to view this area.</p>
+        <Link href="/login" className="inline-block px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl text-sm shadow-md shadow-indigo-600/20 transition-all">
           Sign in as Admin
         </Link>
       </div>
@@ -33,11 +33,11 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
-      <aside className="md:col-span-1 space-y-2">
-        <div className="px-3 py-2 text-xs font-bold text-slate-500 uppercase tracking-wider">
+      <aside className="md:col-span-1 space-y-3">
+        <div className="px-3 py-1 text-xs font-bold text-slate-400 uppercase tracking-wider">
           Organizer Hub
         </div>
-        <div className="space-y-1">
+        <div className="space-y-1 bg-white p-2 rounded-2xl border border-slate-200 shadow-xs">
           {navItems.map((item) => {
             const Icon = item.icon;
             const active = pathname === item.href;
@@ -45,10 +45,10 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`flex items-center space-x-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold transition-colors ${
+                className={`flex items-center space-x-3 px-3.5 py-2.5 rounded-xl text-sm font-bold transition-all ${
                   active
-                    ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/30'
-                    : 'text-slate-400 hover:text-white hover:bg-slate-900'
+                    ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/20'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
                 }`}
               >
                 <Icon className="w-4 h-4" />
